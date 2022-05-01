@@ -9,7 +9,11 @@ const cors=require('cors')  // makes our api accessible from different domains
 const xss=require('xss-clean') // controls any http injections by attacker requests control req.query req.body and req.params
 const rateLimiter=require('express-rate-limit')//limits the amounts of requests that can be done 
 
+// Swagger
 
+const swaggerUI=require('swagger-ui-express')
+const YAML=require('yamljs')
+const swaggerDocument=YAML.load('./swagger.yaml')
 
 
 
@@ -33,8 +37,13 @@ const authenticateUser=require('./middleware/authentication')
 const connectDB=require('./db/connect')
 // routes
 app.get('/', (req, res) => {
-  res.send('jobs api');
+  res.send('jobs api<h1><a href="api-docs">Documentation</a></h1>');
 });
+
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocument));
+
+
+
 //base route
 app.use('/api/v1/auth/',authRouter)
 app.use('/api/v1/jobs/',authenticateUser,jobRouter)
