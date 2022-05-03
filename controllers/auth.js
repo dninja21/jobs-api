@@ -7,8 +7,6 @@ const {BadRequestError,UnauthenticatedError}=require('../errors')
 
 const register=async(req,res)=>{
 
-   
-   
     const user=await User.create({...req.body})
     const token=user.createJWT()
     res.status(StatusCodes.CREATED).json({user:{user:user.name},token})
@@ -23,7 +21,6 @@ const login=async(req,res)=>{
     {
         throw new BadRequestError('Please Provide email and password')
     }
-
     const user= await User.findOne({email})
     
     if(!user)
