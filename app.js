@@ -9,6 +9,7 @@ const cors=require('cors')  // makes our api accessible from different domains
 const xss=require('xss-clean') // controls any http injections by attacker requests control req.query req.body and req.params
 const rateLimiter=require('express-rate-limit')//limits the amounts of requests that can be done 
 
+
 // Swagger
 
 const swaggerUI=require('swagger-ui-express')
@@ -59,9 +60,9 @@ const port = process.env.PORT || 3000;
 const start = async () => {
   try {
         await connectDB(process.env.MONGO_URI)
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
+        app.listen(port, () =>
+        console.log(`Server is listening on port ${port}...`)
+      );
   } catch (error) {
     console.log(error);
   }
